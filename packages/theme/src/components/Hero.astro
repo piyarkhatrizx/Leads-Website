@@ -1,10 +1,13 @@
 ---
-import type { SiteConfig } from '../config.ts'
+import type { ImageSlot, SiteConfig } from '../config.ts'
 import { telHref } from '../fill.ts'
-interface Props { eyebrow: string; headline: string; sub: string; phone: string; config: SiteConfig }
-const { eyebrow, headline, sub, phone } = Astro.props
+interface Props { eyebrow: string; headline: string; sub: string; phone: string; config: SiteConfig; image?: ImageSlot }
+const { eyebrow, headline, sub, phone, image } = Astro.props
 ---
-<section class="hero">
+<section
+  class:list={['hero', image?.src && 'hero-photo']}
+  style={image?.src ? `background-image:linear-gradient(90deg,var(--deep) 30%,rgba(15,43,34,.72)),url('${image.src}')` : undefined}
+>
   <div class="shell hero-in">
     <div>
       <p class="eyebrow">{eyebrow}</p>
@@ -17,11 +20,20 @@ const { eyebrow, headline, sub, phone } = Astro.props
       <slot name="trust" />
     </div>
     <div class="hero-form"><slot name="form" /></div>
+    {image && !image.src && (
+      <Fragment set:html={`<!-- IMAGE SLOT /img/hero.jpg | ${image.size} | ${image.subject} -->`} />
+      <p class="hero-slot" data-image-slot="/img/hero.jpg">
+        <b>Image slot</b> /img/hero.jpg — {image.subject} ({image.size})
+      </p>
+    )}
   </div>
 </section>
 
 <style>
   .hero { background: var(--deep); color: #fff; }
+  .hero-photo { background-position: center; background-size: cover; }
+  .hero-slot { border: 1px dashed rgba(255, 255, 255, 0.35); color: #b9c8c0; font: 11px/1.5 var(--mono); grid-column: 1 / -1; margin: 0; padding: 10px 14px; }
+  .hero-slot b { color: var(--accent); letter-spacing: 0.12em; margin-right: 8px; text-transform: uppercase; }
   .hero-in { align-items: center; display: grid; gap: clamp(32px, 5vw, 64px); grid-template-columns: 1fr minmax(0, 420px); padding-block: clamp(48px, 7vw, 88px); }
   .hero-sub { color: #b9c8c0; }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin: 28px 0 32px; }

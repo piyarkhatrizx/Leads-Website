@@ -1,0 +1,49 @@
+---
+import type { ImageSlot } from '../config.ts'
+
+interface Props {
+  /** Stable slot id — shown on the placeholder and in the HTML comment. */
+  id: string
+  image: ImageSlot
+  /** CSS aspect-ratio, e.g. '16 / 10'. */
+  ratio?: string
+}
+const { id, image, ratio = '16 / 10' } = Astro.props
+const expected = image.src || `/img/${id}.jpg`
+---
+{
+  image.src ? (
+    <img class="media" src={image.src} alt={image.alt} loading="lazy" decoding="async" style={`aspect-ratio:${ratio}`} />
+  ) : (
+    <Fragment>
+      <Fragment set:html={`<!-- IMAGE SLOT ${expected} | ${image.size} | ${image.subject} -->`} />
+      <div class="ph" data-image-slot={expected} style={`aspect-ratio:${ratio}`} role="img" aria-label={`Placeholder: ${image.alt}`}>
+        <span class="ph-tag">Image slot</span>
+        <span class="ph-id">{expected}</span>
+        <span class="ph-subject">{image.subject}</span>
+        <span class="ph-size">{image.size}</span>
+      </div>
+    </Fragment>
+  )
+}
+
+<style>
+  .media { display: block; height: auto; object-fit: cover; width: 100%; }
+  .ph {
+    align-items: center;
+    background: repeating-linear-gradient(45deg, rgba(127, 127, 127, 0.08) 0 10px, transparent 10px 20px);
+    border: 1px dashed currentColor;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+    padding: 18px;
+    text-align: center;
+    width: 100%;
+  }
+  .ph-tag { color: var(--accent); font: 10px var(--mono); letter-spacing: 0.14em; text-transform: uppercase; }
+  .ph-id { font: 12px var(--mono); opacity: 0.9; word-break: break-all; }
+  .ph-subject { font-size: 12px; line-height: 1.5; max-width: 34ch; opacity: 0.85; }
+  .ph-size { font: 10px var(--mono); letter-spacing: 0.1em; opacity: 0.6; }
+</style>

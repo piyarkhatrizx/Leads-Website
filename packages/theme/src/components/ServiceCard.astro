@@ -1,15 +1,22 @@
 ---
-interface Props { title: string; text: string; index: number }
-const { title, text, index } = Astro.props
+import Media from './Media.astro'
+import type { ImageSlot } from '../config.ts'
+interface Props { title: string; text: string; index: number; slug: string; image?: ImageSlot }
+const { title, text, index, slug, image } = Astro.props
 ---
 <article class="card">
+  {image && <div class="card-media"><Media id={`service-${slug}`} image={image} ratio="4 / 3" /></div>}
   <span class="num">{String(index + 1).padStart(2, '0')}</span>
   <h3>{title}</h3>
   <p>{text}</p>
 </article>
 
 <style>
-  .card { background: var(--paper); border: 1px solid var(--line); padding: 26px 24px 24px; }
+  .card { background: var(--paper); border: 1px solid var(--line); }
+  .card > :not(.card-media) { margin-inline: 24px; }
+  .card > .num { margin-top: 26px; }
+  .card > p { margin-bottom: 24px; }
+  .card-media { border-bottom: 1px solid var(--line); }
   .num { color: var(--accent); display: block; font: 11px var(--mono); letter-spacing: 0.1em; margin-bottom: 18px; }
   h3 { font-family: var(--serif); font-size: 25px; }
   p { color: var(--muted); font-size: 14px; margin: 0; }

@@ -10,7 +10,9 @@ const { services, heading, sub } = Astro.props
     <h2 set:html={heading} />
     {sub && <p class="lede">{sub}</p>}
     <div class="grid">
-      {services.map((service, i) => <ServiceCard title={service.title} text={service.text} index={i} />)}
+      {services.map((service, i) => (
+        <ServiceCard title={service.title} text={service.text} index={i} slug={service.slug} image={service.image} />
+      ))}
     </div>
   </div>
 </section>

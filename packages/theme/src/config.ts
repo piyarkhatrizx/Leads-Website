@@ -7,7 +7,23 @@ export type City = {
   phone?: string
   blurb?: string
 }
-export type Service = { slug: string; title: string; text: string }
+/**
+ * A photo that has not been sourced yet. Leave `src` empty and the page renders
+ * a labelled placeholder naming the file to drop in and the shot to get.
+ * Fill `src` (e.g. '/img/hero.jpg') and the same slot renders the real image.
+ */
+export type ImageSlot = {
+  /** Public path once the file exists, e.g. '/img/hero.jpg'. Empty = placeholder. */
+  src?: string
+  /** Alt text. Write it now — it is the brief as much as the accessibility text. */
+  alt: string
+  /** What the photo has to show. This is the instruction to whoever sources it. */
+  subject: string
+  /** Target export size, e.g. '1600x1000'. */
+  size: string
+}
+
+export type Service = { slug: string; title: string; text: string; image?: ImageSlot }
 export type Faq = { q: string; a: string }
 export type Stub = { title: string; body: string }
 
@@ -29,6 +45,8 @@ export type SiteConfig = {
   hero: { eyebrow: string; headline: string; sub: string }
   trust: string[]
   services: Service[]
+  /** Site-wide photo slots. Keys are stable ids used in the placeholder label. */
+  images: Record<string, ImageSlot>
   cities: City[]
   faqs: Faq[]
   stubs: Stub[]
@@ -47,6 +65,15 @@ export function defineSite(config: SiteConfig): SiteConfig {
     ['formEndpoint', config.formEndpoint],
     ...config.cities.map((c) => [`cities.${c.slug}.phone`, c.phone ?? '']),
   ].filter(([, value]) => PLACEHOLDER.test(String(value)))
+
+  const missingImages = [
+    ...Object.entries(config.images).map(([id, slot]) => [`images.${id}`, slot] as const),
+    ...config.services.filter((s) => s.image).map((s) => [`services.${s.slug}.image`, s.image!] as const),
+  ].filter(([, slot]) => !slot.src)
+
+  if (missingImages.length) {
+    console.warn(`[theme] ${config.brand}: ${missingImages.length} photo slot(s) still placeholder — ${missingImages.map(([id]) => id).join(', ')}`)
+  }
 
   if (unfilled.length) {
     const message = `${config.brand}: unfilled placeholders — ${unfilled.map(([k]) => k).join(', ')}`

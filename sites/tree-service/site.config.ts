@@ -23,11 +23,32 @@ export default defineSite({
 
   trust: ['Licensed & insured crews', 'Free written estimates', '24/7 storm response', 'Full debris cleanup'],
 
+  // Photo slots. Empty src renders a labelled placeholder naming the file and
+  // the shot to get. Drop files in public/img/ and set src to go live.
+  images: {
+    hero: {
+      src: '',
+      alt: 'Tree crew removing a large limb above a Northwest Indiana house',
+      subject: 'Wide hero shot: climber roped in with a large residential tree, house visible. Dark enough on the left for white text to sit over it.',
+      size: '2000x1200',
+    },
+    proof: {
+      src: '',
+      alt: 'Crew loading brush into a chipper on a residential street',
+      subject: 'Crew at work on a Region street - chipper, truck, cleanup in progress. Shows the cleanup promise, not a stock forest.',
+      size: '1400x1050',
+    },
+  },
+
   services: [
-    { slug: 'removal', title: 'Tree Removal', text: 'Safe, controlled removal of hazardous, diseased or unwanted trees — including tight drops near houses and power lines.' },
-    { slug: 'trimming', title: 'Trimming & Pruning', text: 'Structural pruning and canopy thinning that keeps limbs off your roof and your trees growing strong.' },
-    { slug: 'stump-grinding', title: 'Stump Grinding', text: 'Ground below grade and hauled away, so you can sod, plant or pave over it the same week.' },
-    { slug: 'storm-cleanup', title: 'Emergency Storm Cleanup', text: 'Downed limbs and split trunks cleared fast after Region storms, day or night.' },
+    { slug: 'removal', title: 'Tree Removal', text: 'Safe, controlled removal of hazardous, diseased or unwanted trees — including tight drops near houses and power lines.',
+      image: { src: '', alt: 'Sectional tree removal beside a house', subject: 'Trunk taken down in sections with rigging, close to a structure.', size: '1000x750' } },
+    { slug: 'trimming', title: 'Trimming & Pruning', text: 'Structural pruning and canopy thinning that keeps limbs off your roof and your trees growing strong.',
+      image: { src: '', alt: 'Arborist pruning a canopy from a bucket lift', subject: 'Pruning in progress from a bucket or on rope - visible saw, healthy canopy.', size: '1000x750' } },
+    { slug: 'stump-grinding', title: 'Stump Grinding', text: 'Ground below grade and hauled away, so you can sod, plant or pave over it the same week.',
+      image: { src: '', alt: 'Stump grinder cutting a stump below grade', subject: 'Stump grinder mid-cut with chips thrown, or a clean before/after.', size: '1000x750' } },
+    { slug: 'storm-cleanup', title: 'Emergency Storm Cleanup', text: 'Downed limbs and split trunks cleared fast after Region storms, day or night.',
+      image: { src: '', alt: 'Storm-downed tree across a residential yard', subject: 'Split trunk or limb down across a yard, fence or driveway. Overcast light.', size: '1000x750' } },
   ],
 
   cities: [

@@ -9,6 +9,7 @@ import ServiceGrid from '../components/ServiceGrid.astro'
 import QuoteForm from '../components/QuoteForm.astro'
 import CallCta from '../components/CallCta.astro'
 import ContentBlock from '../components/ContentBlock.astro'
+import MediaBand from '../components/MediaBand.astro'
 import FaqList from '../components/FaqList.astro'
 
 interface Props { config: SiteConfig; city: City }
@@ -32,6 +33,7 @@ const faqs = config.faqs.map((f) => ({ q: t(f.q, config, city), a: t(f.a, config
     eyebrow={`${city.name}, Indiana`}
     headline={t(`{niche} in <em>{city}</em>.`, config, city)}
     sub={description}
+    image={config.images.hero}
   >
     <TrustBar slot="trust" items={config.trust} />
     <QuoteForm slot="form" config={config} city={city.slug} services={config.services} />
@@ -54,6 +56,15 @@ const faqs = config.faqs.map((f) => ({ q: t(f.q, config, city), a: t(f.a, config
       </div>
     </div>
   </section>
+
+  <MediaBand
+    id="proof"
+    image={config.images.proof}
+    heading={t('Trusted across <em>{city}</em>.', config, city)}
+    body={t('Local crews, verified coverage and a written price before anyone starts — the same standard on every {city} job.', config, city)}
+    points={config.trust}
+    phone={phone}
+  />
 
   <CallCta
     phone={phone}

@@ -23,13 +23,36 @@ export default defineSite({
 
   trust: ['Licensed & insured crews', 'On site 24/7', 'We bill your insurer directly', 'Documented moisture readings'],
 
+  // Photo slots. Empty src renders a labelled placeholder naming the file and
+  // the shot to get. Drop files in public/img/ and set src to go live.
+  images: {
+    hero: {
+      src: '',
+      alt: 'Technician running extraction equipment in a flooded basement',
+      subject: 'Wide hero shot: tech with extraction hose or air movers in a flooded basement. Dark on the left so white text reads over it.',
+      size: '2000x1200',
+    },
+    proof: {
+      src: '',
+      alt: 'Air movers and dehumidifier running in a dried-out basement',
+      subject: 'Drying equipment set up and running - air movers, dehumidifier, moisture meter in shot. Shows process, not disaster.',
+      size: '1400x1050',
+    },
+  },
+
   services: [
-    { slug: 'extraction', title: 'Water Extraction', text: 'Truck-mounted extraction and commercial drying equipment on site fast, because standing water gets worse by the hour.' },
-    { slug: 'basement-flooding', title: 'Basement Flooding', text: 'Pump-out, drying and dehumidification for the finished and unfinished basements the Region is full of.' },
-    { slug: 'sewage-cleanup', title: 'Sewage Cleanup', text: 'Category 3 backups cleaned, disinfected and disposed of to standard. This is not a shop-vac job.' },
-    { slug: 'burst-pipe', title: 'Burst Pipe Response', text: 'Frozen and split supply lines stopped, dried and documented before the drywall and subfloor go.' },
-    { slug: 'storm-damage', title: 'Storm Damage', text: 'Roof leaks, wind-driven rain and lake-effect flooding tarped, dried and made safe.' },
-    { slug: 'mold', title: 'Mold Remediation', text: 'Containment, removal and clearance testing when water sat long enough to grow something.' },
+    { slug: 'extraction', title: 'Water Extraction', text: 'Truck-mounted extraction and commercial drying equipment on site fast, because standing water gets worse by the hour.',
+      image: { src: '', alt: 'Truck-mounted extraction hose pulling standing water', subject: 'Extraction wand or hose actively pulling water off a floor.', size: '1000x750' } },
+    { slug: 'basement-flooding', title: 'Basement Flooding', text: 'Pump-out, drying and dehumidification for the finished and unfinished basements the Region is full of.',
+      image: { src: '', alt: 'Flooded residential basement with standing water', subject: 'Standing water in a Midwest basement - stairs, utilities, water line on the wall.', size: '1000x750' } },
+    { slug: 'sewage-cleanup', title: 'Sewage Cleanup', text: 'Category 3 backups cleaned, disinfected and disposed of to standard. This is not a shop-vac job.',
+      image: { src: '', alt: 'Technician in full PPE during a category 3 cleanup', subject: 'Tech in full PPE with containment sheeting. Controlled and professional, not graphic.', size: '1000x750' } },
+    { slug: 'burst-pipe', title: 'Burst Pipe Response', text: 'Frozen and split supply lines stopped, dried and documented before the drywall and subfloor go.',
+      image: { src: '', alt: 'Split copper supply line with water damage below', subject: 'Burst or frozen pipe close-up with visible water staining beneath.', size: '1000x750' } },
+    { slug: 'storm-damage', title: 'Storm Damage', text: 'Roof leaks, wind-driven rain and lake-effect flooding tarped, dried and made safe.',
+      image: { src: '', alt: 'Tarped roof after storm damage', subject: 'Emergency tarp on a residential roof, or interior ceiling water damage.', size: '1000x750' } },
+    { slug: 'mold', title: 'Mold Remediation', text: 'Containment, removal and clearance testing when water sat long enough to grow something.',
+      image: { src: '', alt: 'Containment barrier set up for mold remediation', subject: 'Zipped poly containment with negative air machine. Clinical, not alarming.', size: '1000x750' } },
   ],
 
   cities: [

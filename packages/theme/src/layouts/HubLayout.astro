@@ -9,6 +9,7 @@ import ServiceGrid from '../components/ServiceGrid.astro'
 import QuoteForm from '../components/QuoteForm.astro'
 import CallCta from '../components/CallCta.astro'
 import ContentBlock from '../components/ContentBlock.astro'
+import MediaBand from '../components/MediaBand.astro'
 import FaqList from '../components/FaqList.astro'
 
 interface Props { config: SiteConfig }
@@ -31,6 +32,7 @@ const description = t(config.hero.sub, config)
     eyebrow={t(config.hero.eyebrow, config)}
     headline={t(config.hero.headline, config)}
     sub={description}
+    image={config.images.hero}
   >
     <TrustBar slot="trust" items={config.trust} />
     <QuoteForm slot="form" config={config} services={config.services} />
@@ -68,6 +70,15 @@ const description = t(config.hero.sub, config)
       </div>
     </div>
   </section>
+
+  <MediaBand
+    id="proof"
+    image={config.images.proof}
+    heading={`Good work is <em>worth growing on.</em>`}
+    body="Local crews, verified coverage and a written price before anyone starts. No jargon, no surprise line items, no shortcuts on cleanup."
+    points={config.trust}
+    phone={phone}
+  />
 
   <CallCta phone={phone} heading="Need someone <em>today</em>?" sub="Call and we'll route you to an available local crew." />
   <FaqList faqs={config.faqs.map((f) => ({ q: t(f.q, config), a: t(f.a, config) }))} />

@@ -28,6 +28,20 @@ rm -rf sites/new-niche/dist
 npm install
 ```
 
+## Photos
+
+Every image is a slot in `site.config.ts` — `images.hero`, `images.proof` and
+`image` on each service. An empty `src` renders a labelled placeholder on the
+page naming the file to add, the shot required and the target size; setting
+`src` swaps in the real `<img>`.
+
+```sh
+npm run build                      # prints every slot still on a placeholder
+grep -ro "IMAGE SLOT [^ ]*" sites  # every slot in source or built output
+```
+
+Files go in `sites/<site>/public/img/`.
+
 ## Placeholders
 
 `{{PHONE}}` and `{{FORM_ENDPOINT}}` are filled in before launch. Local builds
