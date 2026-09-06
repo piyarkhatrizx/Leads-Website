@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --outDir dist/client && vite build --ssr src/entry-server.jsx --outDir dist/server",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "ssr": "node server.js"
   },
   "dependencies": {
     "react": "^19.2.8",

@@ -1,10 +1,11 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+const root = document.getElementById('root')
+const app = <StrictMode><App /></StrictMode>
+
+// firstElementChild, not hasChildNodes: the <!--ssr-outlet--> comment is a child node
+if (root.firstElementChild) hydrateRoot(root, app)
+else createRoot(root).render(app)
