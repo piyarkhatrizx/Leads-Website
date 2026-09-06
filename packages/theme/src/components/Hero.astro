@@ -1,8 +1,18 @@
 ---
 import type { ImageSlot, SiteConfig } from '../config.ts'
 import { telHref } from '../fill.ts'
-interface Props { eyebrow: string; headline: string; sub: string; phone: string; config: SiteConfig; image?: ImageSlot }
-const { eyebrow, headline, sub, phone, image } = Astro.props
+interface Props {
+  eyebrow: string
+  headline: string
+  sub: string
+  phone: string
+  config: SiteConfig
+  /** Background behind the whole hero. */
+  image?: ImageSlot
+  /** Background behind the quote form column. */
+  quoteImage?: ImageSlot
+}
+const { eyebrow, headline, sub, phone, image, quoteImage } = Astro.props
 ---
 <section
   class:list={['hero', image?.src && 'hero-photo']}
@@ -19,7 +29,20 @@ const { eyebrow, headline, sub, phone, image } = Astro.props
       </div>
       <slot name="trust" />
     </div>
-    <div class="hero-form"><slot name="form" /></div>
+    <div
+      class:list={['hero-form', quoteImage?.src && 'hero-form-photo']}
+      style={quoteImage?.src ? `background-image:linear-gradient(rgba(8,25,19,.62),rgba(8,25,19,.62)),url('${quoteImage.src}')` : undefined}
+    >
+      <slot name="form" />
+      {quoteImage && !quoteImage.src && (
+        <Fragment set:html={`<!-- IMAGE SLOT /img/quote-bg.jpg | ${quoteImage.size} | ${quoteImage.subject} -->`} />
+      )}
+      {quoteImage && !quoteImage.src && (
+        <p class="hero-slot hero-slot-quote" data-image-slot="/img/quote-bg.jpg">
+          <b>Image slot</b> /img/quote-bg.jpg — {quoteImage.subject} ({quoteImage.size})
+        </p>
+      )}
+    </div>
     {image && !image.src && (
       <Fragment set:html={`<!-- IMAGE SLOT /img/hero.jpg | ${image.size} | ${image.subject} -->`} />
       <p class="hero-slot" data-image-slot="/img/hero.jpg">
@@ -32,6 +55,8 @@ const { eyebrow, headline, sub, phone, image } = Astro.props
 <style>
   .hero { background: var(--deep); color: #fff; }
   .hero-photo { background-position: center; background-size: cover; }
+  .hero-form-photo { background-position: center; background-size: cover; padding: 26px; }
+  .hero-slot-quote { margin-top: 14px; }
   .hero-slot { border: 1px dashed rgba(255, 255, 255, 0.35); color: #b9c8c0; font: 11px/1.5 var(--mono); grid-column: 1 / -1; margin: 0; padding: 10px 14px; }
   .hero-slot b { color: var(--accent); letter-spacing: 0.12em; margin-right: 8px; text-transform: uppercase; }
   .hero-in { align-items: center; display: grid; gap: clamp(32px, 5vw, 64px); grid-template-columns: 1fr minmax(0, 420px); padding-block: clamp(48px, 7vw, 88px); }

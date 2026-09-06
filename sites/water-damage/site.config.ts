@@ -32,6 +32,12 @@ export default defineSite({
       subject: 'Wide hero shot: tech with extraction hose or air movers in a flooded basement. Dark on the left so white text reads over it.',
       size: '2000x1200',
     },
+    quote: {
+      src: '',
+      alt: 'Water pooling on a basement floor',
+      subject: 'Vertical-friendly backdrop behind the quote form: water on a floor, drying equipment or a rain-streaked window. Quiet enough for white form text to read over it.',
+      size: '1200x1600',
+    },
     proof: {
       src: '',
       alt: 'Air movers and dehumidifier running in a dried-out basement',

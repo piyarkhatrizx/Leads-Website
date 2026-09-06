@@ -34,6 +34,7 @@ const faqs = config.faqs.map((f) => ({ q: t(f.q, config, city), a: t(f.a, config
     headline={t(`{niche} in <em>{city}</em>.`, config, city)}
     sub={description}
     image={config.images.hero}
+    quoteImage={config.images.quote}
   >
     <TrustBar slot="trust" items={config.trust} />
     <QuoteForm slot="form" config={config} city={city.slug} services={config.services} />

@@ -32,6 +32,12 @@ export default defineSite({
       subject: 'Wide hero shot: climber roped in with a large residential tree, house visible. Dark enough on the left for white text to sit over it.',
       size: '2000x1200',
     },
+    quote: {
+      src: '',
+      alt: 'Mature tree canopy over a Northwest Indiana street',
+      subject: 'Vertical-friendly backdrop behind the quote form: canopy, trunk detail or a tree-lined street. Must stay quiet enough that white form text reads over it.',
+      size: '1200x1600',
+    },
     proof: {
       src: '',
       alt: 'Crew loading brush into a chipper on a residential street',
