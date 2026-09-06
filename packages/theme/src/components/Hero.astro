@@ -1,0 +1,29 @@
+---
+import type { SiteConfig } from '../config.ts'
+import { telHref } from '../fill.ts'
+interface Props { eyebrow: string; headline: string; sub: string; phone: string; config: SiteConfig }
+const { eyebrow, headline, sub, phone } = Astro.props
+---
+<section class="hero">
+  <div class="shell hero-in">
+    <div>
+      <p class="eyebrow">{eyebrow}</p>
+      <h1 set:html={headline} />
+      <p class="lede hero-sub">{sub}</p>
+      <div class="hero-cta">
+        <a class="btn" href={telHref(phone)} data-cta="hero-call">Call {phone}</a>
+        <a class="btn btn-ghost" href="#quote">Get a free quote</a>
+      </div>
+      <slot name="trust" />
+    </div>
+    <div class="hero-form"><slot name="form" /></div>
+  </div>
+</section>
+
+<style>
+  .hero { background: var(--deep); color: #fff; }
+  .hero-in { align-items: center; display: grid; gap: clamp(32px, 5vw, 64px); grid-template-columns: 1fr minmax(0, 420px); padding-block: clamp(48px, 7vw, 88px); }
+  .hero-sub { color: #b9c8c0; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin: 28px 0 32px; }
+  @media (max-width: 900px) { .hero-in { grid-template-columns: 1fr; } }
+</style>

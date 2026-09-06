@@ -1,0 +1,52 @@
+---
+import type { SiteConfig } from '../config.ts'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import '../styles/tokens.css'
+import '../styles/base.css'
+
+interface Props {
+  config: SiteConfig
+  phone: string
+  title: string
+  description: string
+  canonical: string
+  schemas?: unknown[]
+}
+const { config, phone, title, description, canonical, schemas = [] } = Astro.props
+const url = new URL(canonical, `https://${config.domain}`).href
+const themeVars = Object.entries({
+  '--accent': config.accent,
+  '--accent-ink': config.accentInk,
+  '--deep': config.deep,
+  '--deep-2': config.deep2,
+})
+  .filter(([, value]) => value)
+  .map(([name, value]) => `${name}:${value}`)
+  .join(';')
+---
+<!doctype html>
+<!-- Accent comes from the site config. Inline style attribute so it beats
+     tokens.css regardless of how Astro orders the stylesheet links. -->
+<html lang="en" style={themeVars}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {schemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+  </head>
+  <body>
+    <Header config={config} phone={phone} />
+    <main>
+      <slot />
+    </main>
+    <Footer config={config} phone={phone} />
+  </body>
+</html>

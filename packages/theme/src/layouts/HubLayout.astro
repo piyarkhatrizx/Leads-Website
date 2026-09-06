@@ -1,0 +1,84 @@
+---
+import type { SiteConfig } from '../config.ts'
+import { t } from '../config.ts'
+import { serviceSchema, faqSchema } from '../schema.ts'
+import BaseLayout from './BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import TrustBar from '../components/TrustBar.astro'
+import ServiceGrid from '../components/ServiceGrid.astro'
+import QuoteForm from '../components/QuoteForm.astro'
+import CallCta from '../components/CallCta.astro'
+import ContentBlock from '../components/ContentBlock.astro'
+import FaqList from '../components/FaqList.astro'
+
+interface Props { config: SiteConfig }
+const { config } = Astro.props
+const phone = config.phone
+const title = `${config.niche} in Northwest Indiana | ${config.brand}`
+const description = t(config.hero.sub, config)
+---
+<BaseLayout
+  config={config}
+  phone={phone}
+  title={title}
+  description={description}
+  canonical="/"
+  schemas={[serviceSchema(config), faqSchema(config.faqs, config)]}
+>
+  <Hero
+    config={config}
+    phone={phone}
+    eyebrow={t(config.hero.eyebrow, config)}
+    headline={t(config.hero.headline, config)}
+    sub={description}
+  >
+    <TrustBar slot="trust" items={config.trust} />
+    <QuoteForm slot="form" config={config} services={config.services} />
+  </Hero>
+
+  <ServiceGrid
+    services={config.services}
+    heading={`Every kind of <em>${config.niche.toLowerCase()}</em> job.`}
+    sub={`Licensed, insured local crews across ${config.cities.map((c) => c.name).join(', ')} and the rest of the Region.`}
+  />
+
+  <section class="section" id="areas">
+    <div class="shell">
+      <p class="eyebrow eyebrow-dark">Where we work</p>
+      <h2>Serving the <em>Region</em>.</h2>
+      <ul class="cities">
+        {config.cities.map((city) => (
+          <li>
+            <a href={`/${city.slug}`}>
+              <strong>{city.name}, IN</strong>
+              <span>{t(city.blurb ?? `${config.niche} in {city}`, config, city)}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section local">
+    <div class="shell">
+      <p class="eyebrow eyebrow-dark">Local know-how</p>
+      <h2>Built for <em>Northwest Indiana</em>.</h2>
+      <div class="blocks">
+        {config.stubs.map((stub) => <ContentBlock title={t(stub.title, config)} body={t(stub.body, config)} />)}
+      </div>
+    </div>
+  </section>
+
+  <CallCta phone={phone} heading="Need someone <em>today</em>?" sub="Call and we'll route you to an available local crew." />
+  <FaqList faqs={config.faqs.map((f) => ({ q: t(f.q, config), a: t(f.a, config) }))} />
+</BaseLayout>
+
+<style>
+  .cities { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-top: 34px; }
+  .cities a { border: 1px solid var(--line); display: block; padding: 22px; transition: border-color 0.15s; }
+  .cities a:hover { border-color: var(--accent); }
+  .cities strong { display: block; font-family: var(--serif); font-size: 23px; font-weight: 400; margin-bottom: 6px; }
+  .cities span { color: var(--muted); font-size: 14px; }
+  .local { background: var(--cream); }
+  .blocks { display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 34px; }
+</style>

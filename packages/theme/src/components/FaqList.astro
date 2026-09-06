@@ -1,0 +1,29 @@
+---
+import type { Faq } from '../config.ts'
+interface Props { faqs: Faq[]; heading?: string }
+const { faqs, heading = 'Common questions' } = Astro.props
+---
+<section class="section faq" id="faq">
+  <div class="shell">
+    <p class="eyebrow eyebrow-dark">Good to know</p>
+    <h2>{heading}</h2>
+    <div class="list">
+      {faqs.map((faq) => (
+        <details>
+          <summary>{faq.q}</summary>
+          <p>{faq.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .list { margin-top: 34px; max-width: 780px; }
+  details { border-bottom: 1px solid var(--line); padding: 18px 0; }
+  summary { cursor: pointer; font-size: 17px; list-style: none; padding-right: 28px; position: relative; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { color: var(--accent); content: '+'; position: absolute; right: 0; }
+  details[open] summary::after { content: '−'; }
+  details p { color: var(--muted); font-size: 15px; margin: 12px 0 0; max-width: 68ch; }
+</style>

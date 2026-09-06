@@ -1,0 +1,16 @@
+:root {
+  /* Sites override --accent* only. Everything else is shared. */
+  --accent: #d99a2b;
+  --accent-ink: #17392d;
+  --deep: #0f2b22;
+  --deep-2: #173d30;
+  --ink: #17251f;
+  --muted: #5f6f66;
+  --cream: #faf8f2;
+  --paper: #fff;
+  --line: #e4e2d8;
+  --shell: 1180px;
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --serif: 'Newsreader', Georgia, serif;
+}

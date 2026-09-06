@@ -1,16 +1,59 @@
-# React + Vite
+# Northwest Indiana lead-gen sites
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Astro, static output, deployed to Cloudflare Pages. One authority domain per
+niche: a hub page plus per-city pages.
 
-Currently, two official plugins are available:
+```
+packages/theme      shared components, layouts, tokens, JSON-LD helpers
+sites/tree-service  219 Tree Service  (reference implementation)
+sites/water-damage  Region Restoration
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Everything lives in the config
 
-## React Compiler
+`sites/<site>/site.config.ts` holds every brand, phone, city, service, FAQ and
+content value. The page files under `src/pages/` are three thin wrappers and
+should stay that way — if you find yourself writing markup in a site, the
+component belongs in `packages/theme` instead.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Adding a city is one entry in `cities`; `[city].astro` generates the page.
 
-## Expanding the Oxlint configuration
+## Adding a third niche
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```sh
+cp -r sites/tree-service sites/new-niche
+rm -rf sites/new-niche/dist
+# edit site.config.ts (brand, accent, cities, services, stubs, faqs)
+# edit package.json name + astro.config.mjs site url
+npm install
+```
+
+## Placeholders
+
+`{{PHONE}}` and `{{FORM_ENDPOINT}}` are filled in before launch. Local builds
+warn about unfilled ones; a build with `CF_PAGES` or `STRICT_PLACEHOLDERS` set
+fails instead, so a live site can't ship without a working number or form.
+
+## Commands
+
+```sh
+npm run dev                       # tree-service dev server
+npm run build                     # build every site
+npm run build -w @leads/tree-service
+npm test                          # theme unit tests
+```
+
+## Cloudflare Pages
+
+One project per site, same repo:
+
+| setting | value |
+|---|---|
+| root directory | `sites/tree-service` |
+| build command | `npm run build` |
+| output directory | `dist` |
+
+## Schema
+
+`Service` + `areaServed` + `FAQPage` only. No `LocalBusiness`, no address, no
+geo — these are referral sites with no physical location.

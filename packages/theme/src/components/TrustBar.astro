@@ -1,0 +1,13 @@
+---
+interface Props { items: string[] }
+const { items } = Astro.props
+---
+<ul class="trust">
+  {items.map((item) => <li><span aria-hidden="true">✓</span>{item}</li>)}
+</ul>
+
+<style>
+  .trust { color: #a8bbaf; display: flex; flex-wrap: wrap; font-size: 13px; gap: 10px 24px; }
+  .trust li { align-items: center; display: flex; gap: 8px; }
+  .trust span { color: var(--accent); }
+</style>

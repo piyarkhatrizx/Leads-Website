@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@leads/theme/layouts/BaseLayout.astro'
+import { telHref } from '@leads/theme/fill.ts'
+import config from '../../site.config.ts'
+---
+<BaseLayout
+  config={config}
+  phone={config.phone}
+  title={`Thanks — ${config.brand}`}
+  description="Your request is in. We'll be in touch shortly."
+  canonical="/thanks"
+>
+  <section class="section shell done">
+    <p class="eyebrow">Request received</p>
+    <h1>Thanks, we’ve <em>got it</em>.</h1>
+    <p class="lede">
+      We’ll match you with a local crew and follow up shortly. In a hurry?
+      <a href={telHref(config.phone)}>Call {config.phone}</a>.
+    </p>
+    <a class="btn" href="/">Back to the site</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .done { min-height: 46vh; }
+  .done a[href^='tel:'] { border-bottom: 1px solid var(--accent); }
+  .btn { margin-top: 20px; }
+</style>

@@ -1,0 +1,52 @@
+---
+import type { Service, SiteConfig } from '../config.ts'
+interface Props { config: SiteConfig; city?: string; services: Service[] }
+const { config, city, services } = Astro.props
+const source = city ? `${config.domain}/${city}` : config.domain
+---
+<div class="quote" id="quote">
+  <p class="eyebrow">Free estimate</p>
+  <h3>Request a quote</h3>
+  <p class="quote-sub">Tell us what's going on. We'll match you with a local pro and get back to you with next steps.</p>
+
+  <form method="POST" action={config.formEndpoint}>
+    <!-- Endpoint routing + attribution. _redirect is honoured by Formspree/Basin/Pages Functions. -->
+    <input type="hidden" name="_redirect" value="/thanks" />
+    <input type="hidden" name="source" value={source} />
+    <input type="hidden" name="brand" value={config.brand} />
+    {city && <input type="hidden" name="city" value={city} />}
+    <!-- Honeypot: bots fill it, humans never see it. -->
+    <p class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label></p>
+
+    <label>Your name
+      <input required type="text" name="name" autocomplete="name" placeholder="Jane Smith" />
+    </label>
+    <label>Phone
+      <input required type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="(219) 555-0142" />
+    </label>
+    <label>What do you need?
+      <select name="service">
+        {services.map((service) => <option value={service.slug}>{service.title}</option>)}
+        <option value="other">Something else</option>
+      </select>
+    </label>
+    <label>Details
+      <textarea name="details" rows="3" placeholder="A little about the job..."></textarea>
+    </label>
+    <button class="btn" type="submit">Send my request</button>
+  </form>
+  <p class="quote-note">No obligation · We reply the same day</p>
+</div>
+
+<style>
+  .quote { background: var(--deep-2); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 30px 28px 24px; }
+  h3 { font-family: var(--serif); font-size: 30px; }
+  .quote-sub { color: #afc1b5; font-size: 14px; }
+  label { color: #afc1b5; display: block; font: 10px var(--mono); letter-spacing: 0.09em; margin-bottom: 16px; text-transform: uppercase; }
+  input, textarea, select { background: transparent; border: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.25); border-radius: 0; color: #fff; display: block; font: 15px var(--font); margin-top: 8px; padding: 10px 0; width: 100%; }
+  select option { color: #000; }
+  ::placeholder { color: #769284; }
+  .btn { width: 100%; }
+  .quote-note { color: #7b9385; font: 10px var(--mono); letter-spacing: 0.08em; margin: 16px 0 0; text-align: center; text-transform: uppercase; }
+  .hp { height: 0; margin: 0; overflow: hidden; position: absolute; width: 0; }
+</style>

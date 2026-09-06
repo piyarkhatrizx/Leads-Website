@@ -1,0 +1,81 @@
+---
+import type { City, SiteConfig } from '../config.ts'
+import { t } from '../config.ts'
+import { serviceSchema, faqSchema } from '../schema.ts'
+import BaseLayout from './BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import TrustBar from '../components/TrustBar.astro'
+import ServiceGrid from '../components/ServiceGrid.astro'
+import QuoteForm from '../components/QuoteForm.astro'
+import CallCta from '../components/CallCta.astro'
+import ContentBlock from '../components/ContentBlock.astro'
+import FaqList from '../components/FaqList.astro'
+
+interface Props { config: SiteConfig; city: City }
+const { config, city } = Astro.props
+const phone = city.phone || config.phone
+const title = `${config.niche} in ${city.name}, IN | ${config.brand}`
+const description = t(`${config.hero.sub} Serving {city} and the surrounding Region.`, config, city)
+const faqs = config.faqs.map((f) => ({ q: t(f.q, config, city), a: t(f.a, config, city) }))
+---
+<BaseLayout
+  config={config}
+  phone={phone}
+  title={title}
+  description={description}
+  canonical={`/${city.slug}`}
+  schemas={[serviceSchema(config, city), faqSchema(config.faqs, config, city)]}
+>
+  <Hero
+    config={config}
+    phone={phone}
+    eyebrow={`${city.name}, Indiana`}
+    headline={t(`{niche} in <em>{city}</em>.`, config, city)}
+    sub={description}
+  >
+    <TrustBar slot="trust" items={config.trust} />
+    <QuoteForm slot="form" config={config} city={city.slug} services={config.services} />
+  </Hero>
+
+  <ServiceGrid
+    services={config.services}
+    heading={t(`What we handle in <em>{city}</em>.`, config, city)}
+    sub={t(city.blurb ?? `Local crews covering {city} and the neighbouring Region towns.`, config, city)}
+  />
+
+  <section class="section local">
+    <div class="shell">
+      <p class="eyebrow eyebrow-dark">{city.name} specifics</p>
+      <h2 set:html={t(`Why {city} is <em>different</em>.`, config, city)} />
+      <div class="blocks">
+        {config.stubs.map((stub) => (
+          <ContentBlock title={t(stub.title, config, city)} body={t(stub.body, config, city)} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CallCta
+    phone={phone}
+    heading={t(`Serving <em>{city}</em> today.`, config, city)}
+    sub={t('Call and we will route you to an available crew near {city}.', config, city)}
+  />
+  <FaqList faqs={faqs} heading={t('Questions from {city} homeowners', config, city)} />
+
+  <section class="section">
+    <div class="shell">
+      <p class="eyebrow eyebrow-dark">Nearby</p>
+      <ul class="near">
+        {config.cities.filter((c) => c.slug !== city.slug).map((c) => <li><a href={`/${c.slug}`}>{c.name}</a></li>)}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .local { background: var(--cream); }
+  .blocks { display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 34px; }
+  .near { display: flex; flex-wrap: wrap; gap: 12px; }
+  .near a { border: 1px solid var(--line); display: block; font-size: 14px; padding: 12px 18px; }
+  .near a:hover { border-color: var(--accent); }
+</style>

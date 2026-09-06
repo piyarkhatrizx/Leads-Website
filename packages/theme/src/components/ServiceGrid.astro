@@ -1,0 +1,21 @@
+---
+import ServiceCard from './ServiceCard.astro'
+import type { Service } from '../config.ts'
+interface Props { services: Service[]; heading: string; sub?: string }
+const { services, heading, sub } = Astro.props
+---
+<section class="section services" id="services">
+  <div class="shell">
+    <p class="eyebrow eyebrow-dark">What we do</p>
+    <h2 set:html={heading} />
+    {sub && <p class="lede">{sub}</p>}
+    <div class="grid">
+      {services.map((service, i) => <ServiceCard title={service.title} text={service.text} index={i} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services { background: var(--cream); }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 40px; }
+</style>

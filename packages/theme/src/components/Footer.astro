@@ -1,0 +1,34 @@
+---
+import type { SiteConfig } from '../config.ts'
+import { telHref } from '../fill.ts'
+interface Props { config: SiteConfig; phone: string }
+const { config, phone } = Astro.props
+---
+<footer class="ftr">
+  <div class="shell">
+    <div class="row">
+      <div>
+        <strong>{config.brand}</strong>
+        <small>{config.niche} · Northwest Indiana</small>
+      </div>
+      <nav>
+        {config.cities.map((city) => <a href={`/${city.slug}`}>{city.name}</a>)}
+      </nav>
+      <a class="phone" href={telHref(phone)} data-cta="footer-call">{phone}</a>
+    </div>
+    <p class="disclaimer">{config.disclaimer}</p>
+    <p class="copy">© {new Date().getFullYear()} {config.brand}</p>
+  </div>
+</footer>
+
+<style>
+  .ftr { background: #08190f; color: #99aa9f; font-size: 13px; padding: 44px 0 32px; }
+  .row { align-items: start; display: flex; flex-wrap: wrap; gap: 28px; justify-content: space-between; }
+  strong { color: #fff; display: block; }
+  small { display: block; font: 10px var(--mono); letter-spacing: 0.1em; margin-top: 5px; text-transform: uppercase; }
+  nav { display: flex; flex-wrap: wrap; gap: 18px; }
+  nav a:hover, .phone:hover { color: var(--accent); }
+  .phone { color: var(--accent); font-size: 16px; }
+  .disclaimer { border-top: 1px solid rgba(255, 255, 255, 0.09); color: #6f8478; font-size: 11px; line-height: 1.7; margin: 28px 0 0; max-width: 80ch; padding-top: 20px; }
+  .copy { font-size: 11px; margin: 10px 0 0; }
+</style>

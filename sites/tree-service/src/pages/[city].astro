@@ -1,0 +1,11 @@
+---
+import CityLayout from '@leads/theme/layouts/CityLayout.astro'
+import config from '../../site.config.ts'
+
+// One route, every city. Adding a city is a line in site.config.ts.
+export function getStaticPaths() {
+  return config.cities.map((city) => ({ params: { city: city.slug }, props: { city } }))
+}
+const { city } = Astro.props
+---
+<CityLayout config={config} city={city} />

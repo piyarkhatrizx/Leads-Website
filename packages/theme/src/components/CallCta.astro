@@ -1,0 +1,21 @@
+---
+import { telHref } from '../fill.ts'
+interface Props { phone: string; heading: string; sub?: string }
+const { phone, heading, sub } = Astro.props
+---
+<section class="cta section">
+  <div class="shell cta-in">
+    <div>
+      <h2 set:html={heading} />
+      {sub && <p class="cta-sub">{sub}</p>}
+    </div>
+    <a class="btn" href={telHref(phone)} data-cta="mid-call">Call {phone}</a>
+  </div>
+</section>
+
+<style>
+  .cta { background: var(--deep); color: #fff; }
+  .cta-in { align-items: center; display: flex; flex-wrap: wrap; gap: 28px; justify-content: space-between; }
+  h2 { margin: 0; }
+  .cta-sub { color: #afc1b5; margin: 12px 0 0; }
+</style>

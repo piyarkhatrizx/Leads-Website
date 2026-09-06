@@ -1,0 +1,34 @@
+---
+import type { SiteConfig } from '../config.ts'
+import { telHref } from '../fill.ts'
+interface Props { config: SiteConfig; phone: string }
+const { config, phone } = Astro.props
+---
+<header class="hdr">
+  <div class="shell hdr-in">
+    <a class="brand" href="/" aria-label={`${config.brand} home`}>
+      <strong>{config.brand}</strong>
+      <small>{config.niche}</small>
+    </a>
+    <nav>
+      <a href="/#services">Services</a>
+      <a href="/#areas">Areas</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+    <a class="btn call-link" href={telHref(phone)} data-cta="header-call">Call {phone}</a>
+  </div>
+</header>
+
+<style>
+  .hdr { background: var(--deep); color: #fff; position: relative; z-index: 5; }
+  .hdr-in { align-items: center; display: flex; gap: 24px; justify-content: space-between; padding-block: 16px; }
+  .brand strong { display: block; font-size: 17px; letter-spacing: -0.01em; }
+  .brand small { color: var(--accent); display: block; font: 10px var(--mono); letter-spacing: 0.12em; margin-top: 3px; text-transform: uppercase; }
+  nav { display: flex; gap: 26px; font-size: 14px; margin-left: auto; }
+  nav a:hover { color: var(--accent); }
+  @media (max-width: 780px) {
+    nav { display: none; }
+    .hdr-in { gap: 12px; }
+    .btn { flex: 1; max-width: 240px; padding: 14px 16px; }
+  }
+</style>
