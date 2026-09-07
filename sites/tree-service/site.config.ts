@@ -27,19 +27,19 @@ export default defineSite({
   // the shot to get. Drop files in public/img/ and set src to go live.
   images: {
     hero: {
-      src: '',
+      src: '/img/hero.webp',
       alt: 'Tree crew removing a large limb above a Northwest Indiana house',
       subject: 'Wide hero shot: climber roped in with a large residential tree, house visible. Dark enough on the left for white text to sit over it.',
       size: '2000x1200',
     },
     quote: {
-      src: '',
+      src: '/img/quote.webp',
       alt: 'Mature tree canopy over a Northwest Indiana street',
       subject: 'Vertical-friendly backdrop behind the quote form: canopy, trunk detail or a tree-lined street. Must stay quiet enough that white form text reads over it.',
       size: '1200x1600',
     },
     proof: {
-      src: '',
+      src: '/img/proof.webp',
       alt: 'Crew loading brush into a chipper on a residential street',
       subject: 'Crew at work on a Region street - chipper, truck, cleanup in progress. Shows the cleanup promise, not a stock forest.',
       size: '1400x1050',
@@ -48,13 +48,13 @@ export default defineSite({
 
   services: [
     { slug: 'removal', title: 'Tree Removal', text: 'Safe, controlled removal of hazardous, diseased or unwanted trees — including tight drops near houses and power lines.',
-      image: { src: '', alt: 'Sectional tree removal beside a house', subject: 'Trunk taken down in sections with rigging, close to a structure.', size: '1000x750' } },
+      image: { src: '/img/removal.webp', alt: 'Sectional tree removal beside a house', subject: 'Trunk taken down in sections with rigging, close to a structure.', size: '1000x750' } },
     { slug: 'trimming', title: 'Trimming & Pruning', text: 'Structural pruning and canopy thinning that keeps limbs off your roof and your trees growing strong.',
-      image: { src: '', alt: 'Arborist pruning a canopy from a bucket lift', subject: 'Pruning in progress from a bucket or on rope - visible saw, healthy canopy.', size: '1000x750' } },
-    { slug: 'stump-grinding', title: 'Stump Grinding', text: 'Ground below grade and hauled away, so you can sod, plant or pave over it the same week.',
-      image: { src: '', alt: 'Stump grinder cutting a stump below grade', subject: 'Stump grinder mid-cut with chips thrown, or a clean before/after.', size: '1000x750' } },
+      image: { src: '/img/trimming.webp', alt: 'Arborist pruning limbs from a canopy with a chainsaw', subject: 'Pruning in progress from a bucket or on rope - visible saw, healthy canopy.', size: '1000x750' } },
+    { slug: 'brush-cleanup', title: 'Brush & Lot Cleanup', text: 'Branches, brush and storm debris chipped on site and hauled away, leaving the yard clean and clear.',
+      image: { src: '/img/service-brush-cleanup.jpg', alt: 'Crew feeding branches into a wood chipper on a residential street', subject: 'Wood chipper in action with a crew feeding branches, or a truck loaded with chipped brush. Real residential job, not a stock forest.', size: '1000x750' } },
     { slug: 'storm-cleanup', title: 'Emergency Storm Cleanup', text: 'Downed limbs and split trunks cleared fast after Region storms, day or night.',
-      image: { src: '', alt: 'Storm-downed tree across a residential yard', subject: 'Split trunk or limb down across a yard, fence or driveway. Overcast light.', size: '1000x750' } },
+      image: { src: '/img/storm-cleanup.webp', alt: 'Storm-downed tree across a residential yard', subject: 'Split trunk or limb down across a yard, fence or driveway. Overcast light.', size: '1000x750' } },
   ],
 
   cities: [
