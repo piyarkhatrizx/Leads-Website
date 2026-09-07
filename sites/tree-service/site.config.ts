@@ -9,7 +9,7 @@ export default defineSite({
   domain: '219treeservice.com',
 
   // Drop CallRail/Twilio numbers in here. Per-city numbers go on each city below.
-  phone: '{{PHONE}}',
+  phone: '(737) 258-3742',
   formEndpoint: '{{FORM_ENDPOINT}}',
 
   accent: '#3f9a52',
@@ -58,9 +58,9 @@ export default defineSite({
   ],
 
   cities: [
-    { slug: 'gary', name: 'Gary', phone: '{{PHONE}}', blurb: 'Tree removal and storm cleanup across Gary, Miller Beach and Glen Park.' },
-    { slug: 'hammond', name: 'Hammond', phone: '{{PHONE}}', blurb: 'Crews covering Hammond, Hessville and the Calumet corridor.' },
-    { slug: 'east-chicago', name: 'East Chicago', phone: '{{PHONE}}', blurb: 'Tree work in East Chicago, Indiana Harbor and Calumet.' },
+    { slug: 'gary', name: 'Gary', phone: '(737) 258-3742', blurb: 'Tree removal and storm cleanup across Gary, Miller Beach and Glen Park.' },
+    { slug: 'hammond', name: 'Hammond', phone: '(737) 258-3742', blurb: 'Crews covering Hammond, Hessville and the Calumet corridor.' },
+    { slug: 'east-chicago', name: 'East Chicago', phone: '(737) 258-3742', blurb: 'Tree work in East Chicago, Indiana Harbor and Calumet.' },
   ],
 
   stubs: [
@@ -85,7 +85,7 @@ export default defineSite({
   faqs: [
     { q: 'How fast can you get to {city} after a storm?', a: 'Emergency calls in {city} are triaged by hazard. Limbs on a house, a car or a power line come first, and we aim to have a crew on site the same day.' },
     { q: 'Are your crews licensed and insured?', a: 'Every contractor in our network carries liability coverage and workers’ compensation, and we verify it before sending anyone to your property. Ask for the certificate — a legitimate crew will hand it over without hesitating.' },
-    { q: 'Do you remove the stump too?', a: 'Stump grinding is a separate line on the estimate because not everyone wants it. If you plan to sod or replant, grinding below grade is worth it.' },
+    { q: 'Do you haul away the branches and debris?', a: 'Yes. Brush, limbs and storm debris are chipped on site and hauled away — cleanup is part of the job in {city}, not an afterthought, so you are not left with a pile in the yard.' },
     { q: 'What does a quote cost?', a: 'Nothing. Estimates in {city} are free and written down before any work starts, so there are no surprises when the invoice arrives.' },
     { q: 'Do I need to be home for the work?', a: 'For the estimate it helps, so you can point out what worries you. For the work itself you do not, as long as the crew has clear access to the tree.' },
   ],
