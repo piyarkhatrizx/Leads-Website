@@ -10,6 +10,8 @@ const source = city ? `${config.domain}/${city}` : config.domain
   <p class="quote-sub">Tell us what's going on. We'll match you with a local pro and get back to you with next steps.</p>
 
   <form method="POST" action={config.formEndpoint}>
+    <!-- Routes the submission to this site's inbox. Public by design. -->
+    <input type="hidden" name="access_key" value={config.formAccessKey} />
     <!-- Endpoint routing + attribution. _redirect is honoured by Formspree/Basin/Pages Functions. -->
     <input type="hidden" name="_redirect" value="/thanks" />
     <input type="hidden" name="source" value={source} />

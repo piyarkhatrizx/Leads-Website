@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config'
 
 export default defineConfig({
-  site: 'https://219treeservice.com',
+  site: 'https://calumettreeservice.com',
   output: 'static',
   trailingSlash: 'never',
   build: { format: 'file' },

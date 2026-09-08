@@ -35,6 +35,8 @@ export type SiteConfig = {
   domain: string
   phone: string
   formEndpoint: string
+  /** Provider key identifying the destination inbox. Public by design — it ships in the HTML. */
+  formAccessKey: string
   accent: string
   /** Text colour on top of accent — keep contrast >= 4.5:1. */
   accentInk: string
@@ -63,6 +65,7 @@ export function defineSite(config: SiteConfig): SiteConfig {
   const unfilled = [
     ['phone', config.phone],
     ['formEndpoint', config.formEndpoint],
+    ['formAccessKey', config.formAccessKey],
     ...config.cities.map((c) => [`cities.${c.slug}.phone`, c.phone ?? '']),
   ].filter(([, value]) => PLACEHOLDER.test(String(value)))
 

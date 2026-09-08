@@ -9,6 +9,7 @@ export default defineSite({
 
   phone: '{{PHONE}}',
   formEndpoint: '{{FORM_ENDPOINT}}',
+  formAccessKey: '{{FORM_ACCESS_KEY}}',
 
   accent: '#2f7fd4',
   accentInk: '#04121f',
